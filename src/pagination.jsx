@@ -23,6 +23,7 @@ export default function Pagination (){
                 setData(details)
             }catch(e){
                 setError(error.message);
+                alert("Failed to fetch data")
                 console.error(error);
             }
  
@@ -30,7 +31,8 @@ export default function Pagination (){
         fetchData()
         
     },[])
- console.log("Data",Data)
+
+
     useEffect(() => {
 
         const startIndex = (currentPage - 1) * maxRecords
@@ -69,12 +71,16 @@ export default function Pagination (){
             </div>
             <div>
                 <table>
+                <thead>
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Role</th>
                     </tr>
+
+                    </thead>
+                    <tbody>
                     {currentRecord.map((employee)=>(
                         <tr>
                             <td>{employee.id}</td>
@@ -83,6 +89,7 @@ export default function Pagination (){
                             <td>{employee.role}</td>
                         </tr>
                     ))}
+                     </tbody>
                 </table>
             </div>
             <div className={styles.paginationWrapper}>
