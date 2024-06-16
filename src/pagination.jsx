@@ -5,7 +5,6 @@ import styles from './pagination.module.css'
 export default function Pagination (){
 
     const[Data,setData] =useState([])
-    const [error, setError] = useState(null);
     const [currentRecord, setCurrentRecord] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
     const maxRecords = 10;
@@ -13,21 +12,19 @@ export default function Pagination (){
     const API_URL = "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json"
     
     useEffect(()=>{
-        const fetchData = async()=>{
+        const fetchData = async () => {
             try {
-                let response = await fetch(API_URL)
-                if (!response.ok) {
-                    throw new Error("Failed to fetch countries");
-                }
-                let details = await response.json();
-                setData(details)
-            }catch(e){
-                setError(error.message);
-                alert("Failed to fetch data")
-                console.error(error);
+              const response = await fetch(API_URL);
+              if (!response.ok) {
+                throw new Error("Failed to fetch data");
+              }
+              const jsonData = await response.json();
+              setData(jsonData);
+            } catch (error) {
+              alert("Failed to fetch data");
+              console.error(error);
             }
- 
-        }
+          };
         fetchData()
         
     },[])
